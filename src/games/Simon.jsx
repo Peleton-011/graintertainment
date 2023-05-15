@@ -7,7 +7,7 @@ const Simon = () => {
 		<>
 			<div>Simon</div>
 			<p>Weee, this is the SImon game!</p>
-            <Board size={2}/>
+            <Board size={4}/>
 		</>
 	);
 };

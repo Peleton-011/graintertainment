@@ -9,7 +9,11 @@ import shuffle from "../../logic/shuffle";
 const Board = ({ size }) => {
 	const [isActive, setIsActive] = useState(true);
 
-	const colors = [["#55CB77", "#DA4642", "#E8E55A", "#0592E2"], ["#911eb4"]];
+	const colors = [
+		["#55CB77", "#DA4642", "#E8E55A", "#0592E2"],
+		["#911eb4", "#f032e6", "#469990", "#fabed4", "#000075"],
+        ["#ffe119", "#a9a9a9", "#000000", "#f58231", "#808000", "#e6194B", "#800000"]
+	];
 
 	const shuffled = shuffle(getColorsBySize(size, colors));
 
@@ -17,7 +21,7 @@ const Board = ({ size }) => {
 		<section>
 			{shuffled.map((color, index) => {
 				return (
-					<div key={index} style={{ backgroundColor: color }}>
+					<div key={index} style={{ backgroundColor: color}}>
 						Cell nº {index}
 					</div>
 				);
@@ -32,14 +36,14 @@ function getColorsBySize(rawSize, colors) {
 		console.error("Size is out of bounds for colors");
 		return;
 	}
-    const totalColors = []
+	const totalColors = [];
 
-    for (let i = 0; i < size + 1; i++) {
-        totalColors.push(...colors[i]);
-    }
+	for (let i = 0; i < size + 1; i++) {
+		totalColors.push(...colors[i]);
+	}
 
-    console.log(totalColors);
-    return totalColors;
+	console.log(totalColors);
+	return totalColors;
 }
 
 export default Board;
