@@ -1,9 +1,7 @@
-import React from 'react'
+import React from "react";
 
-const Cell = () => {
-  return (
-    <div>Cell</div>
-  )
-}
+const Cell = ({ color }) => {
+	return <div style={{ backgroundColor: color }}>Cell</div>;
+};
 
-export default Cell
+export default Cell;

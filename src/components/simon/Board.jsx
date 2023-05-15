@@ -21,9 +21,7 @@ const Board = ({ size }) => {
 		<section>
 			{shuffled.map((color, index) => {
 				return (
-					<div key={index} style={{ backgroundColor: color}}>
-						Cell nº {index}
-					</div>
+					<Cell key={index} color={color} />
 				);
 			})}
 		</section>
