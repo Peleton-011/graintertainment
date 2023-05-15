@@ -12,7 +12,15 @@ const Board = ({ size }) => {
 	const colors = [
 		["#55CB77", "#DA4642", "#E8E55A", "#0592E2"],
 		["#911eb4", "#f032e6", "#469990", "#fabed4", "#000075"],
-        ["#ffe119", "#a9a9a9", "#000000", "#f58231", "#808000", "#e6194B", "#800000"]
+		[
+			"#ffe119",
+			"#a9a9a9",
+			"#000000",
+			"#f58231",
+			"#808000",
+			"#e6194B",
+			"#800000",
+		],
 	];
 
 	const shuffled = shuffle(getColorsBySize(size, colors));
@@ -21,7 +29,12 @@ const Board = ({ size }) => {
 		<section>
 			{shuffled.map((color, index) => {
 				return (
-					<Cell key={index} color={color} />
+					<Cell
+						key={index}
+						color={color}
+						col={index % size}
+						row={Math.floor(index / size)}
+					/>
 				);
 			})}
 		</section>
