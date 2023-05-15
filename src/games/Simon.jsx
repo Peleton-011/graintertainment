@@ -1,12 +1,13 @@
 import React from "react";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
+import { TileListContext, setTileList } from "../context/TileList";
 
 import Board from "../components/simon/Board";
 
 const Simon = () => {
 	const difficulty = 3;
-	const [tileList, setTileList] = useState([]);
+	const tileList = useContext(TileListContext);
 
 	const getTileList = () => {
 		const length = difficulty ** 2;
@@ -32,12 +33,12 @@ const Simon = () => {
 	};
 
 	useEffect(() => {
-		if (tileList !== []) {
+		if (cum !== []) {
 			return;
 		}
 		setTileList(getTileList());
-		console.log(tileList);
-	}, [tileList]);
+		console.log(cum);
+	}, [cum]);
 
 	return (
 		<>
