@@ -1,0 +1,11 @@
+.active {
+	box-shadow: 0 0 0.125em white, 0 0 0.6em;
+}
+
+.ass > .text {
+	background-color: white;
+}
+
+.text {
+	color: black;
+}
