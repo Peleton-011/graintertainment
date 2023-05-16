@@ -25,7 +25,7 @@ const Simon = () => {
 
 	return (
 		<>
-			<div onClick={() => console.log(getTileList())}>Simon</div>
+			<div onClick={() => console.log(newTileList())}>Simon</div>
 			<p>Weee, this is the SImon game!</p>
 			<Board size={difficulty} />
 		</>

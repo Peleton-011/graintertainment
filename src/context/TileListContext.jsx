@@ -48,7 +48,4 @@ const TileListContextProvider = (props) => {
 	);
 };
 
-console.log(TileListContext)
-console.log(TileListContextProvider)
-
 export {TileListContext, TileListContextProvider}
