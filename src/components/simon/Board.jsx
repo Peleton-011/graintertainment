@@ -4,7 +4,7 @@ import { useState } from "react";
 
 import Cell from "./Cell";
 
-const Board = ({ size, roundLost, colorOrder }) => {
+const Board = ({ size, roundLost, colorOrder, levelUp }) => {
 	// const [isActive, setIsActive] = useState(true);
 
 
@@ -19,6 +19,7 @@ const Board = ({ size, roundLost, colorOrder }) => {
 						col={index % size}
 						row={Math.floor(index / size)}
                         roundLost={roundLost}
+                        levelUp={levelUp}
 					/>
 				);
 			})}

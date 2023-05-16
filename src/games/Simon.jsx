@@ -22,7 +22,6 @@ const colors = [
 	],
 ];
 
-
 const Simon = () => {
 	const difficulty = 3;
 	const { tileList, newTileList, removeTile } = useContext(TileListContext);
@@ -36,14 +35,19 @@ const Simon = () => {
 		if (tileList.length > 0) {
 			return;
 		}
+		console.log("You WIN!!! c: (round " + currentLevel + ")");
+        levelUp()
 		newTileList(difficulty, currentLevel);
-		console.log("You WIN!!! c:");
 	}, [tileList]);
 
 	const roundLost = () => {
 		console.log("Oh... You Lost...  :c");
 		setCurrentLevel(1);
 		newTileList(difficulty, currentLevel);
+	};
+
+	const levelUp = () => {
+		setCurrentLevel(currentLevel + 1);
 	};
 
 	return (
@@ -60,6 +64,7 @@ const Simon = () => {
 				size={difficulty}
 				roundLost={roundLost}
 				colorOrder={colorOrder}
+				levelUp={levelUp}
 			/>
 		</>
 	);
