@@ -2,7 +2,7 @@ import { useContext } from "react";
 
 import { TileListContext } from "../../context/TileListContext";
 
-const Cell = ({ color, col, row }) => {
+const Cell = ({ color, col, row, roundLost }) => {
 	const {tileList, removeTile} = useContext(TileListContext);
 
 	return (
@@ -13,9 +13,9 @@ const Cell = ({ color, col, row }) => {
 					: "ass"
 			}
 			style={{ backgroundColor: color, color: color }}
-			onClick={() => {console.log(tileList.length > 0  && tileList[0][0] == col && tileList[0][1] == row
+			onClick={() => {tileList.length > 0  && tileList[0][0] == col && tileList[0][1] == row
                 ? removeTile()
-                : "This is cell ", col, " ", row)}}
+                : roundLost()}}
 		>
 			<span className="text">
 				Cell {col} {row}{" "}

@@ -5,7 +5,8 @@ const TileListContext = createContext([]);
 const TileListContextProvider = (props) => {
 	const [tileList, setTileList] = useState([]);
 
-	const newTileList = (difficulty) => {
+
+	const newTileList = (difficulty, level) => {
 		if (tileList.length > 0) {
 			console.warn("TileList is not empty");
 		}
@@ -30,7 +31,7 @@ const TileListContextProvider = (props) => {
 			list[i] = t;
 		}
 		// console.log(list);
-		setTileList(list);
+		setTileList(list.slice(0, level));
 	};
 
 	const removeTile = () => {
