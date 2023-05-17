@@ -54,11 +54,13 @@ const Simon = () => {
 	return (
 		<>
 			<div
-				onClick={() =>
-					console.log(newTileList(difficulty, currentLevel))
-				}
+				onClick={() => {
+					setCurrentLevel(1);
+					newTileList(difficulty, currentLevel);
+                    console.log(tileList);
+				}}
 			>
-				Simon
+				Reset
 			</div>
 			<p>Weee, this is the SImon game!</p>
 			<Board

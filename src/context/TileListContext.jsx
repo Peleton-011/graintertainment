@@ -22,15 +22,16 @@ const TileListContextProvider = (props) => {
 		for (let i = 0; i < level; i++) {
 			list.push([getRandomInt(difficulty), getRandomInt(difficulty)]);
 		}
-		// console.log(list);
-		setTileList(list.slice(0, level));
-		setOldTileList(tileList);
+		console.log(list);
+		setTileList(list);
+		setOldTileList(list);
 	};
 
 	const nextRound = () => {
 		const newTile = [getRandomInt(difficulty), getRandomInt(difficulty)];
 		setOldTileList([...oldTileList, newTile]);
 		setTileList(oldTileList);
+        console.log(oldTileList);
 	};
 
 	const removeTile = () => {
