@@ -2,36 +2,35 @@ import { useState, createContext, useEffect } from "react";
 
 const TileListContext = createContext([]);
 
+//Never outputs the max
+const getRandomInt = (max) => {
+	return Math.floor(Math.random() * max);
+};
+
 const TileListContextProvider = (props) => {
 	const [tileList, setTileList] = useState([]);
+	const [oldTileList, setOldTileList] = useState([]);
+	const [difficulty, setDifficulty] = useState(2);
 
-
-	const newTileList = (difficulty, level) => {
+	const newTileList = (difficultyParam, level) => {
 		if (tileList.length > 0) {
 			console.warn("TileList is not empty");
 		}
-
-		const length = difficulty ** 2;
+		setDifficulty(difficultyParam);
 		const list = [];
-		//generate list of tiles
-		for (let i = 0; i < difficulty; i++) {
-			for (let j = 0; j < difficulty; j++) {
-				list.push([j, i]);
-			}
-		}
-		//shuffle list of tiles
-		let m = length;
-		let t, i;
 
-		while (m) {
-			i = Math.floor(Math.random() * m);
-			m -= 1;
-			t = list[m];
-			list[m] = list[i];
-			list[i] = t;
+		for (let i = 0; i < level; i++) {
+			list.push([getRandomInt(difficulty), getRandomInt(difficulty)]);
 		}
 		// console.log(list);
 		setTileList(list.slice(0, level));
+		setOldTileList(tileList);
+	};
+
+	const nextRound = () => {
+		const newTile = [getRandomInt(difficulty), getRandomInt(difficulty)];
+		setOldTileList([...oldTileList, newTile]);
+		setTileList(oldTileList);
 	};
 
 	const removeTile = () => {
@@ -43,10 +42,10 @@ const TileListContextProvider = (props) => {
 	};
 
 	return (
-		<TileListContext.Provider value={{ tileList, newTileList, removeTile }}>
+		<TileListContext.Provider value={{ tileList, newTileList, removeTile, nextRound }}>
 			{props.children}
 		</TileListContext.Provider>
 	);
 };
 
-export {TileListContext, TileListContextProvider}
+export { TileListContext, TileListContextProvider };
