@@ -27,37 +27,46 @@ const Simon = () => {
 	const { tileList, newTileList, removeTile, nextRound } =
 		useContext(TileListContext);
 
-    const [isInteractionActive, setIsInteractionActive] = useState(false);
+	const [isInteractionActive, setIsInteractionActive] = useState(false);
 	const [currentLevel, setCurrentLevel] = useState(1);
 	const [colorOrder, setColorOrder] = useState(
 		shuffle(getColorsBySize(difficulty, colors))
 	);
+	const [activeCell, setActiveCell] = useState([-1, -1]);
 
 	useEffect(() => {
 		if (tileList.length > 0) {
 			return;
 		}
 		console.log("You WIN!!! c: (round " + currentLevel + ")");
-        setIsInteractionActive(false);
+		setIsInteractionActive(false);
 		levelUp();
 		nextRound();
-        showNewTileList();
-        setIsInteractionActive(true);
+		showNewTileList();
+		console.log("After showing");
+        console.log(tileList);
 	}, [tileList]);
 
-    const showNewTileList = async () => {
+	const showNewTileList = async () => {
         const sleep = 500;
-        try {
+        const recursiveShow = (index) => {
+            const tile = tileList[index];
+            console.log(tile)
+            console.log(tileList)
+            if (!tile) return;
+            console.log("Cume");
+			setTimeout(() => {
+				setActiveCell([tile[0], tile[1]]);
+                recursiveShow(index + 1);
 
-            tileList.forEach(tile => {
-                setTimeout(activateCell([tile[0], tile[1]]), sleep);
-            });
-
-        } catch (error) {
-            console.warn("Failed to show new tile list");
-            console.warn(error.message);
+			}, sleep);
         }
-    };
+        console.log("PreRecursive show")
+        recursiveShow(0);
+        console.log("After show")
+		setIsInteractionActive(true);
+		console.log("Cum");
+	};
 
 	const roundLost = () => {
 		console.log("Oh... You Lost...  :c");
@@ -75,7 +84,7 @@ const Simon = () => {
 				onClick={() => {
 					setCurrentLevel(1);
 					newTileList(difficulty, currentLevel);
-                    console.log(tileList);
+					console.log(tileList);
 				}}
 			>
 				Reset
@@ -86,6 +95,7 @@ const Simon = () => {
 				roundLost={roundLost}
 				colorOrder={colorOrder}
 				levelUp={levelUp}
+				activeCell={activeCell}
 			/>
 		</>
 	);
