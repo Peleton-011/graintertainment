@@ -1,5 +1,16 @@
 .active {
-	box-shadow: 0 0 0.125em white, 0 0 0.6em;
+	box-shadow: 0 0 0.125em white, 0 0 0.6em currentColor;
+}
+
+section > * {
+    width: 5rem;
+    height: 5rem;
+}
+
+section {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 1rem;
 }
 
 .ass > .text {
