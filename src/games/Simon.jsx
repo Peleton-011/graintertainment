@@ -27,6 +27,7 @@ const Simon = () => {
 	const { tileList, newTileList, removeTile, nextRound } =
 		useContext(TileListContext);
 
+    const [isInteractionActive, setIsInteractionActive] = useState(false);
 	const [currentLevel, setCurrentLevel] = useState(1);
 	const [colorOrder, setColorOrder] = useState(
 		shuffle(getColorsBySize(difficulty, colors))
@@ -37,9 +38,26 @@ const Simon = () => {
 			return;
 		}
 		console.log("You WIN!!! c: (round " + currentLevel + ")");
+        setIsInteractionActive(false);
 		levelUp();
 		nextRound();
+        showNewTileList();
+        setIsInteractionActive(true);
 	}, [tileList]);
+
+    const showNewTileList = async () => {
+        const sleep = 500;
+        try {
+
+            tileList.forEach(tile => {
+                setTimeout(activateCell([tile[0], tile[1]]), sleep);
+            });
+
+        } catch (error) {
+            console.warn("Failed to show new tile list");
+            console.warn(error.message);
+        }
+    };
 
 	const roundLost = () => {
 		console.log("Oh... You Lost...  :c");
