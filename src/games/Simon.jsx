@@ -27,22 +27,32 @@ const Simon = () => {
 	const { tileList, newTileList, removeTile, nextRound } =
 		useContext(TileListContext);
 
-        const [isInteractionActive, setIsInteractionActive] = useState(false);
-        const [currentLevel, setCurrentLevel] = useState(1);
-        const [colorOrder, setColorOrder] = useState(
-            shuffle(getColorsBySize(difficulty, colors))
+	const [isInteractionActive, setIsInteractionActive] = useState(false);
+	const [currentLevel, setCurrentLevel] = useState(1);
+	const [colorOrder, setColorOrder] = useState(
+		shuffle(getColorsBySize(difficulty, colors))
 	);
 	const [activeCell, setActiveCell] = useState([-1, -1]);
-    
-    newTileList(difficulty, currentLevel);
-            const cum = 6;
+
+    //Generate new tile list in the beggining
+	let isMounted = false;
 	useEffect(() => {
-        console.log(tileList)
+		if (!isMounted) {
+			newTileList(difficulty, currentLevel);
+		}
+		return () => {
+			isMounted = true;
+		};
+	}, []);
+
+    //GameLoop quote unquote
+	useEffect(() => {
+		console.log(tileList);
 		if (tileList.length > 0) {
-            console.log("has length")
+			console.log("has length");
 			return;
 		}
-        console.log("has no length")
+		console.log("has no length");
 
 		console.log("You WIN!!! c: (round " + currentLevel + ")");
 		setIsInteractionActive(false);
@@ -51,7 +61,7 @@ const Simon = () => {
 		showNewTileList();
 		console.log("After showing");
 		console.log(tileList);
-	}, [cum]);
+	}, [tileList]);
 
 	const showNewTileList = async () => {
 		const sleep = 1000;
