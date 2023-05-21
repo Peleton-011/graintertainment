@@ -47,15 +47,18 @@ const Simon = () => {
 
 	//GameLoop quote unquote
 	useEffect(() => {
-		console.log(tileList);
+		console.log(tileList.length);
+		console.log(currentLevel);
 		if (tileList.length > 0) {
-			console.log("has length");
-			showNewTileList();
-			console.log("After showing");
+			if (tileList.length !== currentLevel - 1) {
+				return;
+			}
+			showNewTileList().then(() => {
+				setActiveCell([]);
+			});
 
 			return;
 		}
-		console.log("has no length");
 
 		console.log("You WIN!!! c: (round " + currentLevel + ")");
 		setIsInteractionActive(false);
@@ -65,23 +68,18 @@ const Simon = () => {
 
 	const showNewTileList = async () => {
 		const sleep = 1000;
-		console.log("Pre show");
 		console.log(tileList);
 
 		tileList.forEach((tile, index) => {
 			console.log(tile);
-			console.log("Cume");
 			(function (ind) {
 				setTimeout(() => {
 					setActiveCell([tile[0], tile[1]]);
-					console.log("cumin");
 				}, sleep * ind);
 			})(index);
 		});
 
-		console.log("After show");
 		setIsInteractionActive(true);
-		console.log("Cum");
 	};
 
 	const roundLost = () => {
