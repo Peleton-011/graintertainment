@@ -63,7 +63,8 @@ const Simon = () => {
 				return;
 			}
 			showNewTileList().then(() => {
-				setActiveCell([]);
+				setActiveCell([-1, -1]);
+
 			});
 
 			return;
@@ -71,22 +72,28 @@ const Simon = () => {
 
 		console.log("You WIN!!! c: (round " + currentLevel + ")");
 		setIsInteractionActive(false);
+        setTimeout(() => {
+            console.log( sleep * (currentLevel + 1))
+            console.log("Setting interaction to true")
+        		setIsInteractionActive(true);
+        }, sleep * (currentLevel + 1));
 		levelUp();
 		nextRound(currentLevel + 1);
 	}, [tileList]);
 
 	const showNewTileList = async () => {
-		tileList.forEach((tile, index) => {
-			console.log(tile);
-			(function (ind) {
-				setTimeout(() => {
-					setActiveCell([tile[0], tile[1]]);
-					playPressSfx();
-				}, sleep * ind);
-			})(index);
-		});
+        setTimeout(() => {
 
-		setIsInteractionActive(true);
+            tileList.forEach((tile, index) => {
+                console.log(tile);
+                (function (ind) {
+                    setTimeout(() => {
+                        setActiveCell([tile[0], tile[1]]);
+                        playPressSfx();
+                    }, sleep * ind);
+                })(index);
+            })
+		}, sleep);
 	};
 
 	const roundLost = () => {
@@ -100,6 +107,8 @@ const Simon = () => {
 	};
 
 	const tileOnClick = (e, row, col) => {
+        console.log(isInteractionActive)
+        if (!isInteractionActive) return;
 		playPressSfx();
 		tileList.length > 0 && tileList[0][0] == col && tileList[0][1] == row
 			? removeTile()
