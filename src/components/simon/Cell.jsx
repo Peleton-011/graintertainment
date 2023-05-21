@@ -8,7 +8,7 @@ const Cell = ({ color, col, row, roundLost, levelUp, activeCell }) => {
 	return (
 		<div
 			className={
-				activeCell[0] === col && activeCell === row ? "active" : ""
+				activeCell[0] === col && activeCell[1] === row ? "active" : ""
 				/* tileList.length > 0 &&
 				// tileList[0][0] == col &&
 				// tileList[0][1] == row
@@ -33,3 +33,4 @@ const Cell = ({ color, col, row, roundLost, levelUp, activeCell }) => {
 };
 
 export default Cell;
+1

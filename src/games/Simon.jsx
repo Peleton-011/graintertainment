@@ -23,7 +23,7 @@ const colors = [
 ];
 
 const Simon = () => {
-	const difficulty = 3;
+	const difficulty = 2;
 	const { tileList, newTileList, removeTile, nextRound } =
 		useContext(TileListContext);
 
@@ -34,7 +34,7 @@ const Simon = () => {
 	);
 	const [activeCell, setActiveCell] = useState([-1, -1]);
 
-    //Generate new tile list in the beggining
+	//Generate new tile list in the beggining
 	let isMounted = false;
 	useEffect(() => {
 		if (!isMounted) {
@@ -45,11 +45,14 @@ const Simon = () => {
 		};
 	}, []);
 
-    //GameLoop quote unquote
+	//GameLoop quote unquote
 	useEffect(() => {
 		console.log(tileList);
 		if (tileList.length > 0) {
 			console.log("has length");
+			showNewTileList();
+			console.log("After showing");
+
 			return;
 		}
 		console.log("has no length");
@@ -58,9 +61,6 @@ const Simon = () => {
 		setIsInteractionActive(false);
 		levelUp();
 		nextRound();
-		showNewTileList();
-		console.log("After showing");
-		console.log(tileList);
 	}, [tileList]);
 
 	const showNewTileList = async () => {
@@ -74,7 +74,7 @@ const Simon = () => {
 			(function (ind) {
 				setTimeout(() => {
 					setActiveCell([tile[0], tile[1]]);
-					console.log(cumin);
+					console.log("cumin");
 				}, sleep * ind);
 			})(index);
 		});
