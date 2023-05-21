@@ -39,6 +39,8 @@ const Simon = () => {
 
 	const [sleep, setSleep] = useState(1000);
 
+	const [playPressSfx] = useSound(btnPressSfx, { interrupt: false });
+
 	//Generate new tile list in the beggining
 	// let isMounted = false;
 	// useEffect(() => {
@@ -79,6 +81,7 @@ const Simon = () => {
 			(function (ind) {
 				setTimeout(() => {
 					setActiveCell([tile[0], tile[1]]);
+					playPressSfx();
 				}, sleep * ind);
 			})(index);
 		});
@@ -95,8 +98,6 @@ const Simon = () => {
 	const levelUp = () => {
 		setCurrentLevel(currentLevel + 1);
 	};
-
-	const [playPressSfx] = useSound(btnPressSfx, { interrupt: true });
 
 	const tileOnClick = (e, row, col) => {
 		playPressSfx();
