@@ -1,9 +1,9 @@
-import { useContext } from "react";
+// import { useContext } from "react";
 
-import { TileListContext } from "../../context/TileListContext";
+// import { TileListContext } from "../../context/TileListContext";
 
-const Cell = ({ color, col, row, roundLost, activeCell }) => {
-	const { tileList, removeTile } = useContext(TileListContext);
+const Cell = ({ color, col, row, activeCell, tileOnClick }) => {
+	// const { tileList, removeTile } = useContext(TileListContext);
 
 	const sizeInRem = 5;
 
@@ -25,13 +25,7 @@ const Cell = ({ color, col, row, roundLost, activeCell }) => {
 				width: sizeInRem + "rem",
 				height: sizeInRem + "rem",
 			}}
-			onClick={() => {
-				tileList.length > 0 &&
-				tileList[0][0] == col &&
-				tileList[0][1] == row
-					? removeTile()
-					: roundLost();
-			}}
+			onClick={(e) => tileOnClick(e, row, col)}
 		>
 			<span className="text">
 				Cell {col} {row}{" "}

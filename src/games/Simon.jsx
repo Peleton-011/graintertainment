@@ -6,6 +6,9 @@ import shuffle from "../logic/shuffle";
 
 import Board from "../components/simon/Board";
 
+import useSound from "use-sound";
+import btnPressSfx from "../assets/Simon/btn-press-sound.mp3";
+
 import "../styles/Simon.css";
 
 const colors = [
@@ -34,27 +37,27 @@ const Simon = () => {
 	);
 	const [activeCell, setActiveCell] = useState([-1, -1]);
 
-    const [sleep, setSleep] = useState(1000);
+	const [sleep, setSleep] = useState(1000);
 
 	//Generate new tile list in the beggining
 	// let isMounted = false;
 	// useEffect(() => {
 	// 	if (!isMounted) {
-    //         setCurrentLevel(1);
+	//         setCurrentLevel(1);
 	// 		newTileList(difficulty, 1);
-	// 	}  
+	// 	}
 	// 	return () => {
-    //         isMounted = true;
-    //     }
+	//         isMounted = true;
+	//     }
 	// }, []);
 
 	//GameLoop quote unquote
 	useEffect(() => {
-        console.log(tileList.length)
-        console.log(currentLevel);
+		console.log(tileList.length);
+		console.log(currentLevel);
 
 		if (tileList.length > 0) {
-			if (tileList.length !== currentLevel ) {
+			if (tileList.length !== currentLevel) {
 				return;
 			}
 			showNewTileList().then(() => {
@@ -93,12 +96,23 @@ const Simon = () => {
 		setCurrentLevel(currentLevel + 1);
 	};
 
+	const [playPressSfx] = useSound(btnPressSfx, { interrupt: true });
+
+	const tileOnClick = (e, row, col) => {
+		playPressSfx();
+		tileList.length > 0 && tileList[0][0] == col && tileList[0][1] == row
+			? removeTile()
+			: roundLost();
+	};
+
 	return (
-		<main style={{
-            display: "flex",
-            flexDirection: "column",
-            alignItems: "center",
-        }}>
+		<main
+			style={{
+				display: "flex",
+				flexDirection: "column",
+				alignItems: "center",
+			}}
+		>
 			<div
 				onClick={() => {
 					setCurrentLevel(1);
@@ -111,7 +125,7 @@ const Simon = () => {
 			<p>Weee, this is the SImon game!</p>
 			<Board
 				size={difficulty}
-				roundLost={roundLost}
+				tileOnClick={tileOnClick}
 				colorOrder={colorOrder}
 				sleep={sleep}
 				activeCell={activeCell}
