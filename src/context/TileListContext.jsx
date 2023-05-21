@@ -13,13 +13,13 @@ const TileListContextProvider = (props) => {
 	const [difficulty, setDifficulty] = useState(2);
 
 	const newTileList = (difficultyParam, level) => {
+		setDifficulty(difficultyParam);
 		if (tileList.length > 0) {
 			console.warn("TileList is not empty");
 		}
-		setDifficulty(difficultyParam);
 		const list = [];
 
-		for (let i = 0; i < level; i++) {
+		for (let i = 0; i < level + 1; i++) {
 			list.push([getRandomInt(difficulty), getRandomInt(difficulty)]);
 		}
 		console.log(list);
@@ -27,24 +27,37 @@ const TileListContextProvider = (props) => {
 		setOldTileList(list);
 	};
 
-	const nextRound = () => {
-		const newTile = [getRandomInt(difficulty), getRandomInt(difficulty)];
-        const newTileList =  [...oldTileList, newTile]
-        console.log(newTileList);
+	const nextRound = (currentLevel) => {
+		const missing = currentLevel - oldTileList.length;
+        // if (oldTileList.length === 0 ) {
+        //     newTileList(difficulty, 1);
+        //     return;
+        // }
+		const newTileList = Array.from(oldTileList);
+		for (let i = 0; i < missing; i++) {
+			const newTile = [
+				getRandomInt(difficulty),
+				getRandomInt(difficulty),
+			];
+			newTileList.push(newTile);
+		}
+
 		setTileList(newTileList);
 		setOldTileList(newTileList);
 	};
 
-	const removeTile = () => {
+	const removeTile = (diff) => {
 		if (tileList.length < 1) {
-			console.error("TileList is empty.");
-			return;
+            newTileList(diff || difficulty, 1)
+            return;
 		}
 		setTileList(tileList.slice(1));
 	};
 
 	return (
-		<TileListContext.Provider value={{ tileList, newTileList, removeTile, nextRound }}>
+		<TileListContext.Provider
+			value={{ tileList, newTileList, removeTile, nextRound }}
+		>
 			{props.children}
 		</TileListContext.Provider>
 	);

@@ -37,23 +37,24 @@ const Simon = () => {
     const [sleep, setSleep] = useState(1000);
 
 	//Generate new tile list in the beggining
-	let isMounted = false;
-	useEffect(() => {
-		if (!isMounted) {
-			newTileList(difficulty, currentLevel);
-		}
-		return () => {
-			isMounted = true;
-		};
-	}, []);
+	// let isMounted = false;
+	// useEffect(() => {
+	// 	if (!isMounted) {
+    //         setCurrentLevel(1);
+	// 		newTileList(difficulty, 1);
+	// 	}  
+	// 	return () => {
+    //         isMounted = true;
+    //     }
+	// }, []);
 
 	//GameLoop quote unquote
 	useEffect(() => {
-        // console.log(tileList.length)
-        // console.log(currentLevel);
+        console.log(tileList.length)
+        console.log(currentLevel);
 
 		if (tileList.length > 0) {
-			if (tileList.length !== currentLevel - 1) {
+			if (tileList.length !== currentLevel ) {
 				return;
 			}
 			showNewTileList().then(() => {
@@ -66,7 +67,7 @@ const Simon = () => {
 		console.log("You WIN!!! c: (round " + currentLevel + ")");
 		setIsInteractionActive(false);
 		levelUp();
-		nextRound();
+		nextRound(currentLevel + 1);
 	}, [tileList]);
 
 	const showNewTileList = async () => {
@@ -83,9 +84,9 @@ const Simon = () => {
 	};
 
 	const roundLost = () => {
-		console.log("Oh... You Lost...  :c");
+		alert("Oh... You Lost...  :c");
 		setCurrentLevel(1);
-		newTileList(difficulty, currentLevel);
+		newTileList(difficulty, 1);
 	};
 
 	const levelUp = () => {
