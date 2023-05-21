@@ -47,8 +47,6 @@ const Simon = () => {
 
 	//GameLoop quote unquote
 	useEffect(() => {
-		console.log(tileList.length);
-		console.log(currentLevel);
 		if (tileList.length > 0) {
 			if (tileList.length !== currentLevel - 1) {
 				return;
@@ -68,8 +66,6 @@ const Simon = () => {
 
 	const showNewTileList = async () => {
 		const sleep = 1000;
-		console.log(tileList);
-
 		tileList.forEach((tile, index) => {
 			console.log(tile);
 			(function (ind) {
