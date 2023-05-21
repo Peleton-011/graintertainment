@@ -29,9 +29,9 @@ const TileListContextProvider = (props) => {
 
 	const nextRound = () => {
 		const newTile = [getRandomInt(difficulty), getRandomInt(difficulty)];
+		setTileList([...oldTileList, newTile]);
 		setOldTileList([...oldTileList, newTile]);
-		setTileList(oldTileList);
-        console.log(oldTileList);
+        console.log(tileList);
 	};
 
 	const removeTile = () => {

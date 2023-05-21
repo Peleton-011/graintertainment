@@ -27,43 +27,49 @@ const Simon = () => {
 	const { tileList, newTileList, removeTile, nextRound } =
 		useContext(TileListContext);
 
-	const [isInteractionActive, setIsInteractionActive] = useState(false);
-	const [currentLevel, setCurrentLevel] = useState(1);
-	const [colorOrder, setColorOrder] = useState(
-		shuffle(getColorsBySize(difficulty, colors))
+        const [isInteractionActive, setIsInteractionActive] = useState(false);
+        const [currentLevel, setCurrentLevel] = useState(1);
+        const [colorOrder, setColorOrder] = useState(
+            shuffle(getColorsBySize(difficulty, colors))
 	);
 	const [activeCell, setActiveCell] = useState([-1, -1]);
-
+    
+    newTileList(difficulty, currentLevel);
+            const cum = 6;
 	useEffect(() => {
+        console.log(tileList)
 		if (tileList.length > 0) {
+            console.log("has length")
 			return;
 		}
+        console.log("has no length")
+
 		console.log("You WIN!!! c: (round " + currentLevel + ")");
 		setIsInteractionActive(false);
 		levelUp();
 		nextRound();
 		showNewTileList();
 		console.log("After showing");
-        console.log(tileList);
-	}, [tileList]);
+		console.log(tileList);
+	}, [cum]);
 
 	const showNewTileList = async () => {
-        const sleep = 500;
-        const recursiveShow = (index) => {
-            const tile = tileList[index];
-            console.log(tile)
-            console.log(tileList)
-            if (!tile) return;
-            console.log("Cume");
-			setTimeout(() => {
-				setActiveCell([tile[0], tile[1]]);
-                recursiveShow(index + 1);
+		const sleep = 1000;
+		console.log("Pre show");
+		console.log(tileList);
 
-			}, sleep);
-        }
-        console.log("PreRecursive show")
-        recursiveShow(0);
-        console.log("After show")
+		tileList.forEach((tile, index) => {
+			console.log(tile);
+			console.log("Cume");
+			(function (ind) {
+				setTimeout(() => {
+					setActiveCell([tile[0], tile[1]]);
+					console.log(cumin);
+				}, sleep * ind);
+			})(index);
+		});
+
+		console.log("After show");
 		setIsInteractionActive(true);
 		console.log("Cum");
 	};
