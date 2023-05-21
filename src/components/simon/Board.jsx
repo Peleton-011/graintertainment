@@ -4,13 +4,19 @@ import { useState } from "react";
 
 import Cell from "./Cell";
 
-const Board = ({ size, roundLost, colorOrder, levelUp, activeCell }) => {
+const Board = ({ size, roundLost, colorOrder, sleep, activeCell }) => {
 	// const [isActive, setIsActive] = useState(true);
 
-
-
 	return (
-		<section>
+		<section
+			style={{
+				"--sleep-time": sleep,
+				display: "grid",
+				gridTemplateColumns: `repeat(${size}, 1fr)`,
+				alignItems: "center",
+				justifyContent: "center",
+			}}
+		>
 			{colorOrder.map((color, index) => {
 				return (
 					<Cell
@@ -18,9 +24,8 @@ const Board = ({ size, roundLost, colorOrder, levelUp, activeCell }) => {
 						color={color}
 						col={index % size}
 						row={Math.floor(index / size)}
-                        roundLost={roundLost}
-                        levelUp={levelUp}
-                        activeCell={activeCell}
+						roundLost={roundLost}
+						activeCell={activeCell}
 					/>
 				);
 			})}

@@ -2,8 +2,10 @@ import { useContext } from "react";
 
 import { TileListContext } from "../../context/TileListContext";
 
-const Cell = ({ color, col, row, roundLost, levelUp, activeCell }) => {
+const Cell = ({ color, col, row, roundLost, activeCell }) => {
 	const { tileList, removeTile } = useContext(TileListContext);
+
+	const sizeInRem = 5;
 
 	return (
 		<div
@@ -16,7 +18,13 @@ const Cell = ({ color, col, row, roundLost, levelUp, activeCell }) => {
 				// 	: "ass"
                 */
 			}
-			style={{ backgroundColor: color, color: color }}
+			style={{
+				backgroundColor: color,
+				color: color,
+				placeSelf: "center",
+				width: sizeInRem + "rem",
+				height: sizeInRem + "rem",
+			}}
 			onClick={() => {
 				tileList.length > 0 &&
 				tileList[0][0] == col &&
@@ -33,4 +41,4 @@ const Cell = ({ color, col, row, roundLost, levelUp, activeCell }) => {
 };
 
 export default Cell;
-1
+1;

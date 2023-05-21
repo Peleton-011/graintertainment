@@ -34,6 +34,8 @@ const Simon = () => {
 	);
 	const [activeCell, setActiveCell] = useState([-1, -1]);
 
+    const [sleep, setSleep] = useState(1000);
+
 	//Generate new tile list in the beggining
 	let isMounted = false;
 	useEffect(() => {
@@ -47,6 +49,9 @@ const Simon = () => {
 
 	//GameLoop quote unquote
 	useEffect(() => {
+        // console.log(tileList.length)
+        // console.log(currentLevel);
+
 		if (tileList.length > 0) {
 			if (tileList.length !== currentLevel - 1) {
 				return;
@@ -65,7 +70,6 @@ const Simon = () => {
 	}, [tileList]);
 
 	const showNewTileList = async () => {
-		const sleep = 1000;
 		tileList.forEach((tile, index) => {
 			console.log(tile);
 			(function (ind) {
@@ -104,7 +108,7 @@ const Simon = () => {
 				size={difficulty}
 				roundLost={roundLost}
 				colorOrder={colorOrder}
-				levelUp={levelUp}
+				sleep={sleep}
 				activeCell={activeCell}
 			/>
 		</>
