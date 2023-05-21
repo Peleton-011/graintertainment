@@ -93,7 +93,11 @@ const Simon = () => {
 	};
 
 	return (
-		<>
+		<main style={{
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+        }}>
 			<div
 				onClick={() => {
 					setCurrentLevel(1);
@@ -111,7 +115,7 @@ const Simon = () => {
 				sleep={sleep}
 				activeCell={activeCell}
 			/>
-		</>
+		</main>
 	);
 };
 

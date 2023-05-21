@@ -13,8 +13,9 @@ const Board = ({ size, roundLost, colorOrder, sleep, activeCell }) => {
 				"--sleep-time": sleep,
 				display: "grid",
 				gridTemplateColumns: `repeat(${size}, 1fr)`,
-				alignItems: "center",
-				justifyContent: "center",
+                width: "fit-content",
+                height: "fit-content",
+                gap: "1rem"
 			}}
 		>
 			{colorOrder.map((color, index) => {
