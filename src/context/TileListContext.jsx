@@ -8,6 +8,7 @@ const getRandomInt = (max) => {
 };
 
 const TileListContextProvider = (props) => {
+    const [isGameActive, setIsGameActive] = useState(false)
 	const [tileList, setTileList] = useState([]);
 	const [oldTileList, setOldTileList] = useState([]);
 	const [difficulty, setDifficulty] = useState(2);
@@ -54,9 +55,22 @@ const TileListContextProvider = (props) => {
 		setTileList(tileList.slice(1));
 	};
 
+    const exports = isGameActive ? { 
+        tileList: tileList || [], 
+        newTileList, 
+        removeTile, 
+        nextRound 
+    } : {
+        tileList: [],
+        newTileList: () => console.log("Can't generate new tileList, game is inactive"), 
+        removeTile: () => console.log("Can't remove tile from tileList, game is inactive"), 
+        nextRound: () => console.log("Can't change rounds, game is inactive")
+    }
+
+
 	return (
 		<TileListContext.Provider
-			value={{ tileList: tileList || [], newTileList, removeTile, nextRound }}
+			value={exports}
 		>
 			{props.children}
 		</TileListContext.Provider>
