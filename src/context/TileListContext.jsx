@@ -56,7 +56,7 @@ const TileListContextProvider = (props) => {
 
 	return (
 		<TileListContext.Provider
-			value={{ tileList, newTileList, removeTile, nextRound }}
+			value={{ tileList: tileList || [], newTileList, removeTile, nextRound }}
 		>
 			{props.children}
 		</TileListContext.Provider>
